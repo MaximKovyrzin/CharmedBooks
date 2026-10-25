@@ -1,0 +1,234 @@
+/* ==========================================================================
+   10.css — сцена страницы 10.
+   Позиции и размеры элементов сцены заданы в процентах от #scene.
+   ========================================================================== */
+
+/* Текстовая колонка и левая кайма */
+#content {
+  position: relative;
+  width: calc(100vw - 100vh);
+  background: linear-gradient(
+    to right,
+    #cc5900 0,
+    #cc5900 46px,
+    #ffffff 46px,
+    #ffffff 100%
+  );
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+#content::-webkit-scrollbar {
+  width: 6px;
+}
+
+#content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#content::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+
+#content:hover {
+  scrollbar-color: #d15200 transparent;
+}
+
+#content:hover::-webkit-scrollbar-thumb {
+  background: #d15200;
+}
+
+#border-braid-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 46px;
+  height: 100vh;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+#textbox {
+  width: 100%;
+  padding: 66px 24px 64px 68px;
+  align-items: stretch;
+}
+
+#textbox p {
+  margin: 0 0 0.85em;
+}
+
+#textbox p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Кнопка следующего мифа открывается после нажатия на факел. */
+#undertext {
+  position: relative;
+  display: block;
+  align-self: center;
+  width: 225px;
+  max-width: 65%;
+  margin: 64px 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  cursor: pointer;
+}
+
+#undertext img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+#undertext.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Сцена и неподвижные слои */
+#scene {
+  background-color: #cc5900;
+  cursor: default;
+}
+
+#scene-background {
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#border-braid {
+  top: 0;
+  left: 0;
+  z-index: 8;
+  width: 46px;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Закрывает узор под косой, чтобы узоры не просвечивали друг через друга. */
+#scene::before {
+  position: absolute;
+  z-index: 7;
+  bottom: 0;
+  left: 0;
+  width: 46px;
+  height: 11.4%;
+  background-color: #cc5900;
+  content: "";
+  pointer-events: none;
+}
+
+/* Нижний меандр рисуется поверх вертикальной косы. */
+#scene::after {
+  position: absolute;
+  z-index: 9;
+  right: 0;
+  bottom: 0;
+  left: 46px;
+  width: calc(100% - 46px);
+  height: 11.4%;
+  background-image: url("./img/page-10/background.png");
+  background-position: right bottom;
+  background-size: calc(100% + 46px) 877.2%;
+  background-repeat: no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+#apollo-figures {
+  top: 9.8%;
+  left: 8.3%;
+  z-index: 2;
+  width: 76.6%;
+  pointer-events: none;
+}
+
+#apollo-head {
+  top: 9.4%;
+  left: 63.9%;
+  z-index: 4;
+  width: 10%;
+  pointer-events: none;
+}
+
+#apollo-cloth {
+  top: 41%;
+  left: 57.7%;
+  z-index: 4;
+  width: 24.4%;
+  pointer-events: none;
+}
+
+/* Факел — доступная кнопка-сцена. */
+#torch-control {
+  top: 6.5%;
+  left: 40.6%;
+  z-index: 5;
+  width: 9.2%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: filter 0.25s ease;
+}
+
+#torch-control img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+#torch-control:hover {
+  filter: drop-shadow(0 0 14px rgba(255, 220, 125, 0.75));
+}
+
+#torch-control.taken {
+  filter: drop-shadow(0 0 22px rgba(255, 223, 130, 0.95));
+  animation: torchGlow 1.2s ease-in-out 2;
+}
+
+#torch-control:focus-visible,
+#undertext:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 5px;
+}
+
+@keyframes torchGlow {
+  50% {
+    filter: drop-shadow(0 0 34px rgba(255, 230, 160, 1));
+  }
+}
+
+@media screen and (orientation: portrait) {
+  #content {
+    width: 100%;
+  }
+
+  #textbox {
+    padding: 40px 32px 64px 64px;
+  }
+
+  #textbox p {
+    font-size: clamp(16px, 3.8vw, 22px);
+    line-height: 1.5;
+  }
+
+  #undertext {
+    margin-top: 48px;
+  }
+}

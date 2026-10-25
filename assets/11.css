@@ -1,0 +1,254 @@
+/* ==========================================================================
+   11.css — сцена страницы 11.
+   Позиции и размеры элементов сцены заданы в процентах от #scene.
+   ========================================================================== */
+
+/* Текстовая колонка и левая кайма */
+#content {
+  position: relative;
+  width: calc(100vw - 100vh);
+  background: linear-gradient(
+    to right,
+    #cc5900 0,
+    #cc5900 46px,
+    #ffffff 46px,
+    #ffffff 100%
+  );
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+#content::-webkit-scrollbar {
+  width: 6px;
+}
+
+#content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#content::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+
+#content:hover {
+  scrollbar-color: #d15200 transparent;
+}
+
+#content:hover::-webkit-scrollbar-thumb {
+  background: #d15200;
+}
+
+#border-braid-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 46px;
+  height: 100vh;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+#textbox {
+  width: 100%;
+  padding: 66px 24px 64px 68px;
+  align-items: stretch;
+}
+
+#textbox p {
+  margin: 0 0 0.85em;
+}
+
+#textbox p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Фон, кайма, облака и восходящее солнце */
+#scene {
+  background-color: #cc5900;
+  cursor: default;
+}
+
+#scene-background {
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#border-braid {
+  top: 0;
+  left: 0;
+  z-index: 8;
+  width: 46px;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Закрывает узор под косой, чтобы узоры не просвечивали друг через друга. */
+#scene::before {
+  position: absolute;
+  z-index: 7;
+  bottom: 0;
+  left: 0;
+  width: 46px;
+  height: 11.4%;
+  background-color: #cc5900;
+  content: "";
+  pointer-events: none;
+}
+
+/* Нижний меандр рисуется поверх вертикальной косы. */
+#scene::after {
+  position: absolute;
+  z-index: 9;
+  right: 0;
+  bottom: 0;
+  left: 46px;
+  width: calc(100% - 46px);
+  height: 11.4%;
+  background-image: url("./img/page-11/background.png");
+  background-position: right bottom;
+  background-size: calc(100% + 46px) 877.2%;
+  background-repeat: no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+#clouds {
+  top: 0;
+  left: 46px;
+  z-index: 1;
+  width: calc(100% + 0.8%);
+  pointer-events: none;
+  transition: transform 1.4s ease;
+}
+
+#sun {
+  top: 18.7%;
+  left: 67.2%;
+  z-index: 2;
+  width: 26.8%;
+  pointer-events: none;
+  transition: transform 1.4s ease, filter 1.4s ease;
+}
+
+/* Колесница, конь и поводья двигаются вместе при настоящем рывке. */
+#chariot-rig {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  transition: transform 1.35s cubic-bezier(0.2, 0.75, 0.3, 1);
+}
+
+#apollo-chariot {
+  top: 67.8%;
+  left: 11.1%;
+  z-index: 4;
+  width: 16.6%;
+  pointer-events: none;
+}
+
+#horse-body {
+  top: 67.3%;
+  left: 22.2%;
+  z-index: 3;
+  width: 26.4%;
+  pointer-events: none;
+}
+
+#horse-leg-1 {
+  top: 78.6%;
+  left: 30.3%;
+  z-index: 2;
+  width: 6.5%;
+  pointer-events: none;
+}
+
+#horse-leg-2 {
+  top: 79.5%;
+  left: 39.4%;
+  z-index: 2;
+  width: 9.9%;
+  pointer-events: none;
+}
+
+#horse-leg-3 {
+  top: 77.6%;
+  left: 24.2%;
+  z-index: 2;
+  width: 8.9%;
+  pointer-events: none;
+}
+
+#horse-leg-4 {
+  top: 77.1%;
+  left: 34%;
+  z-index: 2;
+  width: 10.5%;
+  pointer-events: none;
+}
+
+#rein-control {
+  top: 70.7%;
+  left: 19.5%;
+  z-index: 6;
+  width: 22%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+}
+
+#rein-control:active {
+  cursor: grabbing;
+}
+
+#rein-control img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+#rein-control.is-pulling {
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.75));
+}
+
+#rein-control:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+#scene.is-rising #chariot-rig {
+  transform: translateY(-10%);
+}
+
+#scene.is-rising #clouds {
+  transform: translateX(-3%);
+}
+
+#scene.is-rising #sun {
+  transform: translateY(-8%) scale(1.08);
+  filter: drop-shadow(0 0 48px rgba(255, 245, 180, 0.9));
+}
+
+@media screen and (orientation: portrait) {
+  #content {
+    width: 100%;
+  }
+
+  #textbox {
+    padding: 40px 32px 64px 64px;
+  }
+
+  #textbox p {
+    font-size: clamp(16px, 3.8vw, 22px);
+    line-height: 1.5;
+  }
+}
